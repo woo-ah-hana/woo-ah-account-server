@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from mangum import Mangum
+import entity, database
 
 app = FastAPI()
+
+entity.Base.metadata.create_all(bind=database.engine)
 
 @app.get("/")
 def hello() :
