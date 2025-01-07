@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from mangum import Mangum
 from requests import Session
-from dto import create_account_dto, create_bank_dto, create_transfer_dto
+from dto import create_account_dto, create_bank_dto, create_transfer_dto, get_account_request_dto
 import entity, database
 import service
 
@@ -27,6 +27,9 @@ def create_account(dto: create_account_dto, database:Session = Depends(database.
 def create_transfer(dto: create_transfer_dto, database:Session = Depends(database.get_db)):
 	return service.create_transfer(dto=dto, database=database)
 
+@app.get("/account")
+def get_account(dto: get_account_request_dto, database:Session = Depends(database.get_db)):
+	return service.get_account(dto=dto, database=database)
 
 
 handler = Mangum(app)

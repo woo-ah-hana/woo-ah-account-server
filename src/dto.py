@@ -33,3 +33,25 @@ class create_transfer_dto(BaseModel):
     bank_rsp_code: str
     fintech_use_num: str
     befor_inquiry_trace_info: str
+
+class get_account_request_dto(BaseModel):
+    bank_tran_id: str
+    fintech_use_num: str
+    tran_dtime: str
+    account_number: str
+
+class get_account_response_dto(BaseModel):
+    api_tran_id: str
+    res_code: str
+    rsp_message: str
+    api_tran_dtm: str
+    bank_tran_id: str
+    bank_tran_date: str
+    bank_code_tran: str
+    bank_rsp_code: str
+    bank_rsp_message: str
+    fintech_use_num: str
+    balance_amt: int
+    available_amt: int
+    account_type: str
+    product_name: str
