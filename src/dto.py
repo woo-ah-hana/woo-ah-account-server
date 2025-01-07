@@ -91,8 +91,8 @@ class get_transfers_response_dto(BaseModel):
     bank_rsp_code: str
     bank_rsp_message: str
     fintech_use_num: str
-    balance_amt: str
-    page_record_cnt: str
+    balance_amt: int
+    page_record_cnt: int
     next_page_yn: str
     before_inquiry_trace_info: str
     res_list: list[transfer_res]

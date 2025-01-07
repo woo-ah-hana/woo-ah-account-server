@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from dto import create_account_dto, create_bank_dto, create_transfer_dto, get_account_request_dto, get_account_response_dto, get_transfers_request_dto, response_dto
+from dto import create_account_dto, create_bank_dto, create_transfer_dto, get_account_request_dto, get_account_response_dto, get_transfers_request_dto, get_transfers_response_dto, response_dto, transfer_res
 from entity import Account, Bank, Transfer
 
 load_dotenv()
@@ -136,10 +136,56 @@ def get_account(dto: get_account_request_dto, database: Session)-> response_dto:
 
 def get_transfers(dto: get_transfers_request_dto, database: Session)-> response_dto:
     account = database.query(Account).filter(Account.account_number==dto.account_number).first()
-    start_date = dto.from_date 
-    end_date = dto.to_date
+    if not account: raise HTTPException(status_code=404, detail="해당 계좌를 찾을 수 없습니다.")
 
+    start_date = datetime.datetime.strptime(dto.from_date, "%Y-%m-%d").date()
+    end_date = datetime.datetime.strptime(dto.to_date, "%Y-%m-%d").date()
+    if start_date > end_date: raise HTTPException(status_code=400, detail="조회 시작 날짜가 조회 끝 날자보다 앞섭니다.")
     
+    try:
+        query = select(Transfer).where(Transfer.account_id == account.id,(Transfer.tran_date >= start_date) & (Transfer.tran_date <= end_date))
+        result = database.execute(query)
+        transfers = result.scalars().all()
+
+        transfer_list: list[transfer_res] = []
+        for transfer in transfers:
+            item = transfer_res(
+                tran_date= str(transfer.tran_date),
+                tran_time= transfer.tran_time,
+                inout_type=transfer.inout_type,
+                tran_type=transfer.tran_type,
+                print_content=transfer.print_content,
+                tran_amt=transfer.tran_amt,
+                after_balance_amt=transfer.after_balance_amt,
+                branch_name=transfer.branch_name
+            )
+            transfer_list.append(item)
+
+        result = get_transfers_response_dto(
+            api_tran_id="0",
+            res_code="0",
+            res_message="성공적으로 거래내역을 불러왔습니다.",
+            api_tran_dtm="0",
+            bank_tran_id=dto.bank_tran_id,
+            bank_tran_date="",
+            bank_code_tran=dto.bank_tran_id+"U12345",
+            bank_rsp_code="",
+            bank_rsp_message="",
+            fintech_use_num=dto.fintech_use_num,
+            balance_amt=account.available_amt,
+            page_record_cnt=len(transfer_list),
+            next_page_yn="no",
+            before_inquiry_trace_info="",
+            res_list=transfer_list
+        )
+
+        return response_dto(
+            is_success=True,
+            message="성공적으로 거래내역을 불러왔습니다.",
+            data=result
+        )
+    except Exception as error:
+        raise HTTPException(status_code=500, detail="알 수 없는 에러가 발생했습니다. 원인: "+error)
 
 
     
