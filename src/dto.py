@@ -6,7 +6,7 @@ class response_dto(BaseModel):
     data: object
 
 class create_account_dto(BaseModel):
-    bank_id: str
+    bank_tran_id: str
     account_type: str
     account_number: str
     product_name: str

@@ -38,7 +38,7 @@ def create_bank(dto: create_bank_dto, database:Session):
 def create_account(dto: create_account_dto, database:Session) -> response_dto:
     new_account: Account = Account(
         id=str(uuid4()),
-        bank_id=dto.bank_id,
+        bank_tran_id=dto.bank_tran_id,
         account_number=dto.account_number,
         available_amt="0", 
         account_type=dto.account_type,

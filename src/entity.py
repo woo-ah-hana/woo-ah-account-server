@@ -14,7 +14,7 @@ class Account(Base):
     __tablename__ = "account"
 
     id = Column(String(50), primary_key=True, default=str(uuid4()))
-    bank_id = Column(String(50), index=True)
+    bank_tran_id = Column(String(50), index=True)
     account_number = Column(String(50), index=True, unique=True)
     available_amt = Column(Integer, index=True)
     account_type = Column(String(50), index=True)
