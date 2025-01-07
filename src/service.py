@@ -1,3 +1,4 @@
+import datetime
 import os
 from uuid import uuid4
 from dotenv import load_dotenv
@@ -5,7 +6,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from dto import create_account_dto, create_bank_dto, create_transfer_dto, get_account_request_dto, get_account_response_dto, response_dto
+from dto import create_account_dto, create_bank_dto, create_transfer_dto, get_account_request_dto, get_account_response_dto, get_transfers_request_dto, response_dto
 from entity import Account, Bank, Transfer
 
 load_dotenv()
@@ -61,7 +62,7 @@ def create_account(dto: create_account_dto, database:Session) -> response_dto:
         data=new_account
     )
 
-def create_transfer(dto: create_transfer_dto, database: Session):
+def create_transfer(dto: create_transfer_dto, database: Session)-> response_dto:
     account = database.query(Account).filter(Account.account_number==dto.account_number).first()
     if not account:
         raise HTTPException(status_code=404, detail="해당 계좌번호를 찾을 수 없습니다.")
@@ -70,16 +71,18 @@ def create_transfer(dto: create_transfer_dto, database: Session):
         after_amt = account.available_amt - dto.tran_amt
     elif(dto.inout_type == "입금"):
         after_amt = account.available_amt + dto.tran_amt
-    else: raise HTTPException(status_code=400, detail="(입출금)잘못된 접근입니다.")
+    else:
+        raise HTTPException(status_code=400, detail="(입출금)잘못된 접근입니다.")
     account.available_amt = after_amt
     database.add(account)
-
+    trans_date = datetime.datetime.strptime(dto.tran_date, "%Y-%m-%d").date()
+    print(trans_date)
     transfer = Transfer(
         id=str(uuid4()),
         account_id = account.id,
-        tran_date = dto.tran_date,
+        tran_date = trans_date,
         tran_time = dto.tran_time,
-        inout_type = dto.tran_type,
+        inout_type = dto.inout_type,
         tran_type = dto.tran_type,
         print_content = dto.print_content,
         tran_amt = dto.tran_amt,
@@ -101,7 +104,7 @@ def create_transfer(dto: create_transfer_dto, database: Session):
         raise HTTPException(status_code=500, detail="거래에 실패했습니다. 원인:"+error)
     
 
-def get_account(dto: get_account_request_dto, database: Session):
+def get_account(dto: get_account_request_dto, database: Session)-> response_dto:
     account = database.query(Account).filter(Account.account_number==dto.account_number).first()
     bank = database.query(Bank).filter(Bank.bank_tran_id == dto.bank_tran_id).first()
 
@@ -130,4 +133,13 @@ def get_account(dto: get_account_request_dto, database: Session):
     except Exception as error:
         database.rollback() 
         raise HTTPException(status_code=500, detail="알 수 없는 에러가 발생했습니다. 원인:"+error)
+
+def get_transfers(dto: get_transfers_request_dto, database: Session)-> response_dto:
+    account = database.query(Account).filter(Account.account_number==dto.account_number).first()
+    start_date = dto.from_date 
+    end_date = dto.to_date
+
+    
+
+
     

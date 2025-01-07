@@ -58,11 +58,12 @@ class get_account_response_dto(BaseModel):
 
 class get_transfers_request_dto(BaseModel):
     bank_tran_id: str
+    account_number: str
     fintech_use_num: str
     inquiry_type: str
     inquiry_base: str
-    form_date: str
-    form_time: str
+    from_date: str
+    from_time: str
     to_date: str
     to_time: str
     sort_order: str
