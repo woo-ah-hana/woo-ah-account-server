@@ -27,11 +27,11 @@ def create_account(dto: create_account_dto, database:Session = Depends(database.
 def create_transfer(dto: create_transfer_dto, database:Session = Depends(database.get_db)):
 	return service.create_transfer(dto=dto, database=database)
 
-@app.get("/account")
+@app.post("/account/info")
 def get_account(dto: get_account_request_dto, database:Session = Depends(database.get_db)):
 	return service.get_account(dto=dto, database=database)
 
-@app.get("/transfer")
+@app.post("/transfer/list")
 def get_transfers(dto: get_transfers_request_dto, database: Session = Depends(database.get_db)):
 	return service.get_transfers(dto=dto, database=database)
 
