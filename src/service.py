@@ -81,7 +81,7 @@ def create_transfer(dto: create_transfer_dto, database: Session)-> response_dto:
     print(trans_date)
     transfer = Transfer(
         id=str(uuid4()),
-        account_id = dto.account_number,
+        account_number = dto.account_number,
         tran_date = trans_date,
         tran_time = dto.tran_time,
         inout_type = dto.inout_type,

@@ -25,7 +25,7 @@ class Transfer(Base):
     __tablename__ = "transfer"
     
     id = Column(String, primary_key=True, default=str(uuid4()))
-    account_id = Column(String(50), index=True)
+    account_number = Column(String(50), index=True)
     tran_date = Column(Date(), index=True)
     tran_time = Column(String(50), index=True)
     inout_type = Column(String(50), index=True)
