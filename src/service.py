@@ -40,7 +40,7 @@ def create_account(dto: create_account_dto, database:Session) -> response_dto:
         id=str(uuid4()),
         bank_tran_id=dto.bank_tran_id,
         account_number=dto.account_number,
-        available_amt="0", 
+        available_amt=0,
         account_type=dto.account_type,
         product_name=dto.product_name,
     )
@@ -69,6 +69,8 @@ def create_transfer(dto: create_transfer_dto, database: Session)-> response_dto:
     
     if(dto.inout_type == "출금" and (account.available_amt >= dto.tran_amt)):
         after_amt = account.available_amt - dto.tran_amt
+    elif(dto.inout_type == "출금" and (account.available_amt < dto.tran_amt)):
+        raise HTTPException(status_code=403, detail="잔액이 부족합니다.")
     elif(dto.inout_type == "입금"):
         after_amt = account.available_amt + dto.tran_amt
     else:
@@ -79,7 +81,7 @@ def create_transfer(dto: create_transfer_dto, database: Session)-> response_dto:
     print(trans_date)
     transfer = Transfer(
         id=str(uuid4()),
-        account_id = account.id,
+        account_number = dto.account_number,
         tran_date = trans_date,
         tran_time = dto.tran_time,
         inout_type = dto.inout_type,

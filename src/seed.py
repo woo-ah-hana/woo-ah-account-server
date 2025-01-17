@@ -41,11 +41,16 @@ def data_seed() :
             Account(id=str(uuid4()), bank_tran_id="008", account_number="5215712291290", available_amt=1540000, account_type="0", product_name="자유입출금계좌"), # 김레이
             Account(id=str(uuid4()), bank_tran_id="009", account_number="1728638574889", available_amt=2151000, account_type="0", product_name="자유입출금계좌"), # 김지원
             Account(id=str(uuid4()), bank_tran_id="010", account_number="2662280371228", available_amt=762000, account_type="0", product_name="자유입출금계좌"), # 이현서
+
+            # 테스트용 계좌
             Account(id=str(uuid4()), bank_tran_id="004", account_number="1601823391973", available_amt=1515000, account_type="0", product_name="자유입출금계좌"),  # 김민지
             Account(id=str(uuid4()), bank_tran_id="005", account_number="0168966238333", available_amt=2432000, account_type="0", product_name="자유입출금계좌"),  # 팜하니
             Account(id=str(uuid4()), bank_tran_id="004", account_number="1606917992650", available_amt=1702000, account_type="0", product_name="자유입출금계좌"),  # 강해린
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1468974443067", available_amt=2348000, account_type="0", product_name="자유입출금계좌"),  # 다니엘
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1468299555144", available_amt=1262000, account_type="0", product_name="자유입출금계좌"),  # 이혜인
+            Account(id=str(uuid4()), bank_tran_id="001", account_number="1462685112064", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
+            Account(id=str(uuid4()), bank_tran_id="001", account_number="1464500439558", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
+            Account(id=str(uuid4()), bank_tran_id="001", account_number="1462919942347", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
 
             # 모임통장 계좌
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1468152645150", available_amt=2451430, account_type="0", product_name="자유입출금계좌"), # 맛집탐방, 계주 : 함형주
@@ -54,9 +59,6 @@ def data_seed() :
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1465510634457", available_amt=1250000, account_type="0", product_name="자유입출금계좌"), # 가평가자, 계주 : 김미강
 
             # 예비용 : 모임 개설 시에 사용(하나은행 계좌만)
-            Account(id=str(uuid4()), bank_tran_id="001", account_number="1462685112064", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
-            Account(id=str(uuid4()), bank_tran_id="001", account_number="1464500439558", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
-            Account(id=str(uuid4()), bank_tran_id="001", account_number="1462919942347", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1468214722317", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1469416055289", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
             Account(id=str(uuid4()), bank_tran_id="001", account_number="1468645396450", available_amt=1200000, account_type="0", product_name="자유입출금계좌"),
@@ -74,7 +76,6 @@ def data_seed() :
         transfer = [
             # 거래 내역
             # 모임 1번(맛집탐방) - 계획 1번(수리고등학교 동창 강릉 여행), 계주 : 함형주, 최초 잔액 : 3257500
-            Transfer(id=str(uuid4()), account_id="1468152645150", tran_date="2025-01-10", tran_time="09:30", inout_type="출금", tran_type="결재", print_content="스타벅스", tran_amt="22400", after_balance_amt="3235100", branch_name="성수역점"),
             Transfer(id=str(uuid4()), account_id="1468152645150", tran_date="2025-01-10", tran_time="09:30",
                      inout_type="출금", tran_type="결재", print_content="스타벅스 성수역점", tran_amt="22400", after_balance_amt="3212700",
                      branch_name=""),
