@@ -145,7 +145,7 @@ def get_transfers(dto: get_transfers_request_dto, database: Session)-> response_
     if start_date > end_date: raise HTTPException(status_code=400, detail="조회 시작 날짜가 조회 끝 날자보다 앞섭니다.")
     
     try:
-        query = select(Transfer).where(Transfer.account_id == account.id,(Transfer.tran_date >= start_date) & (Transfer.tran_date <= end_date))
+        query = select(Transfer).where(Transfer.account_number == account.account_number,(Transfer.tran_date >= start_date) & (Transfer.tran_date <= end_date))
         result = database.execute(query)
         transfers = result.scalars().all()
 
