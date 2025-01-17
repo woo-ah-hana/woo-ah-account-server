@@ -72,6 +72,7 @@ def data_seed() :
         ]
 
         transfer = [
+            # 거래 내역
             # 모임 1번(맛집탐방) - 계획 1번(수리고등학교 동창 강릉 여행), 계주 : 함형주, 최초 잔액 : 3257500
             Transfer(id=str(uuid4()), account_id="1468152645150", tran_date="2025-01-10", tran_time="09:30", inout_type="출금", tran_type="결재", print_content="스타벅스", tran_amt="22400", after_balance_amt="3235100", branch_name="성수역점"),
             Transfer(id=str(uuid4()), account_id="1468152645150", tran_date="2025-01-10", tran_time="09:30",
@@ -129,6 +130,7 @@ def data_seed() :
 
         db.add_all(bank)
         db.add_all(account)
+        db.add_all(transfer)
         db.commit()
         print("seeding completed")
 
