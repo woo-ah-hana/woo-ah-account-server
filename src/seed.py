@@ -75,7 +75,26 @@ def data_seed() :
 
         transfer = [
             # 거래 내역
-            # 모임 1번(맛집탐방) - 계획 1번(수리고등학교 동창 강릉 여행), 계주 : 함형주, 최초 잔액 : 3257500
+            # 모임 1번(맛집탐방) - 계획 0번(작년 정보), 계주 : 함형주, 최초 잔액 : 3260000
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-11-29", tran_time="17:28",
+                     inout_type="출금", tran_type="결재", print_content="이벤트쿠폰구입", tran_amt="4900", after_balance_amt="3255100",
+                     branch_name=""),
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-12-02", tran_time="13:32",
+                     inout_type="출금", tran_type="결재", print_content="한신포차수원역점", tran_amt="20000", after_balance_amt="3235100",
+                     branch_name=""),
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-12-02", tran_time="15:45",
+                     inout_type="출금", tran_type="결재", print_content="파리바게트수원역점", tran_amt="200000", after_balance_amt="3035100",
+                     branch_name=""),
+
+            #회비 입금
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-01-01", tran_time="10:25",
+                     inout_type="입금", tran_type="결재", print_content="윤영헌회비입금", tran_amt="100000", after_balance_amt="3135100",
+                     branch_name=""),
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-01-01", tran_time="11:34",
+                     inout_type="입금", tran_type="결재", print_content="김상현회비입금", tran_amt="100000", after_balance_amt="3235100",
+                     branch_name=""),
+
+            # 모임 1번(맛집탐방) - 계획 1번(수리고등학교 동창 강릉 여행), 계주 : 함형주, 최초 잔액 : 3235100
             Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2025-01-10", tran_time="09:30",
                      inout_type="출금", tran_type="결재", print_content="스타벅스 성수역점", tran_amt="22400", after_balance_amt="3212700",
                      branch_name=""),
@@ -126,7 +145,6 @@ def data_seed() :
             Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2025-01-15", tran_time="14:48",
                      inout_type="출금", tran_type="결재", print_content="스타벅스성수역점", tran_amt="21000", after_balance_amt="2451430",
                      branch_name=""),
-
         ]
 
         db.add_all(bank)
