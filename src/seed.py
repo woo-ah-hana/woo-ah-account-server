@@ -75,9 +75,12 @@ def data_seed() :
 
         transfer = [
             # 거래 내역
-            # 모임 1번(맛집탐방) - 계획 0번(작년 정보), 계주 : 함형주, 최초 잔액 : 3260000
+            # 모임 1번(맛집탐방) - 계획 0번(작년 정보), 계주 : 함형주, 최초 잔액 : 3350000
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-10-24", tran_time="13:56",
+                     inout_type="출금", tran_type="결재", print_content="문화상품권 구입", tran_amt="50000", after_balance_amt="3300000",
+                     branch_name=""),
             Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-11-29", tran_time="17:28",
-                     inout_type="출금", tran_type="결재", print_content="이벤트쿠폰구입", tran_amt="4900", after_balance_amt="3255100",
+                     inout_type="출금", tran_type="결재", print_content="이벤트쿠폰구입", tran_amt="44900", after_balance_amt="3255100",
                      branch_name=""),
             Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-12-02", tran_time="13:32",
                      inout_type="출금", tran_type="결재", print_content="한신포차수원역점", tran_amt="20000", after_balance_amt="3235100",
@@ -87,10 +90,10 @@ def data_seed() :
                      branch_name=""),
 
             #회비 입금
-            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-01-01", tran_time="10:25",
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2025-01-01", tran_time="10:25",
                      inout_type="입금", tran_type="결재", print_content="윤영헌회비입금", tran_amt="100000", after_balance_amt="3135100",
                      branch_name=""),
-            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2024-01-01", tran_time="11:34",
+            Transfer(id=str(uuid4()), account_number="1468152645150", tran_date="2025-01-01", tran_time="11:34",
                      inout_type="입금", tran_type="결재", print_content="김상현회비입금", tran_amt="100000", after_balance_amt="3235100",
                      branch_name=""),
 
